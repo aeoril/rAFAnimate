@@ -1,64 +1,36 @@
-## rAFAnimate
+## rAFAnimate - initial commits only, in work
 
 ### requestAnimationFrame animation engine
 rAF based abstraction that handles timing and control of one or more independent
-multiple animations.
+animations.
 
 ### API
 
 #### rAFAnimate( animate, options, context )
 
-    var analogClockRAFed = rAFAnimate(
-
-      // animate function - same as below, must be reentrant
-      analogClock,
-
-      // options object
+    // Rotate cube around x, y and z axes continuously
+    var animateRAFed = rAFAnimate(
+      animate,
       {
-        msPerTick:  1000.0,   // 1 second per tick for second hand
-        run:        Infinity, // Once started, run continuously,
-        secondHand: Infinity, // Move second hand continuously
-        minuteHand: Infinity, // Move minute hand continuously
-        hourHand:   Infinity  // Move hour hand continuously
-      },
-
-      // context (optional)
-      analogClockContext      // 2D Canvas context for Analog Clock
+        run:      Infinity,
+        showCube: Infinity,
+        rotateX:  Infinity,
+        rotateY:  Infinity,
+        rotateZ:  Infinity
+      }
     );
 
-    var ticksPerSecond = 60; // same as rAF frames per second on most systems
-    var msPerSecond = 1000.0;
-    var msPerTick = msPerSecond / ticksPerSecond; // 16.67, same as frame ms
-                                                  // on most systems
-    var ticksPerDay = msPerTick * msPerSecond * 60.0 * 60.0 * 24.0;
+    // Kick off the animation
+    animateRAFed( );
 
-    var analogClockSweepRAFed = rAFAnimate(
+    // Hide the cube
+    animateRAFed( { showCube: 0 } );
 
-      // animate function - same as above, must be reentrant
-      analogClock,
+    // Toggle showCube back on
+    animateRAFed( { showCube: 'toggle' } );
 
-      // options object
-      {
-        msPerTick:  msPerTick,   // Sweep second hand continuously
-        run:        ticksPerDay, // Once started, run for 24 hours,
-        dial:       Infinity,    // Once started, show dial continuously
-        secondHand: Infinity,    // Move second hand continuously
-        minuteHand: Infinity,    // Move minute hand continuously
-        hourHand:   Infinity     // Move hour hand continuously
-      },
-
-      // context (optional)
-      analogClockSweepContext    // 2D Canvas context for Analog Sweep Clock
-    );
-
-    analogClockRAFed()      // Start analog clock
-    analogClockSweepRAFed() // Start analog sweep clock
-
-    analogClockRAFed( { secondHand: 0 } );        // Hide second hand
-    analogClockRAFed( { secondHand: 'toggle' } ); // toggle second hand back on
-    analogClockRAFed( { run: 0 } );               // Turn off animation, reset times
-    analogClockRAFed( { render: true } );         // Show reset clock
-    analogClockRAFed( { dial: 'immediate' } );    // Show only the dial
+    // Stop running the animation, which resets time, and render reset animation
+    animateRAFed( { run: 0, render: true } );
 
 `rAFAnimate` ties the animate function and its control options to an engine
 instance.
@@ -79,6 +51,12 @@ the engine instance returned by this function.
 portions of the animation. Every possible option except one of the default
 options must be included explicitly to declare the set of control options
 for the engine instance returned.  Options cannot be added later.
+
+##### Context argument
+`context` is optional.  It is typically used if the same `animate` function is
+used in multiple instantiations for different animations.  In such cases,
+`animate` must be reentrant, and whatever context defines each separate
+animation can be passed into the `animate` function
 
 ##### How options work
 Depending on the value of options initially set (or changed by calling the
@@ -122,3 +100,5 @@ normally passed in explicitly, but calculated.
 
 If any option other than `run` or `msPerTick` is non-zero, `render` will
 automatically be set to `true` in the
+
+[clock]: https://aeoril.github.io/rAFAnimate/test/clocks

@@ -1,7 +1,7 @@
 // @author aeoril | https://www.ic3dimensions.com
 // Copyright © 2017 by IC3 Dimensions.  MIT License. See LICENSE.md
 
-function rAFAnimate ( animate, options ) {
+function rAFAnimate ( animate, options, context ) {
 
   'use strict';
 
@@ -65,11 +65,11 @@ function rAFAnimate ( animate, options ) {
       // update any options passed in optionsUpdates
       if ( optionsUpdates ) {
 
-        if ( optionsUpdates.render ) {
+        /* todo if ( optionsUpdates.render ) {
 
           optionsUpdates.run = optionsUpdates.run || 'immediate';
 
-        }
+        } */
 
         Object.keys( optionsUpdates ).forEach( function( key ) {
 
@@ -184,10 +184,10 @@ function rAFAnimate ( animate, options ) {
           }
         });
 
-        // Only call animate() if run === true or 'immediate'
-        if ( outOptions.run ) {
+        // Only call animate() if run === true or 'immediate' or render explicitly true
+        if ( outOptions.run || optionsUpdates.render ) {
 
-          animate( outOptions );
+          animate( outOptions, context );
 
         }
 
