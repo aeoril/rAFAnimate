@@ -1,6 +1,6 @@
 ## rAFAnimate - initial commits only, in work
 
-### requestAnimationFrame animation engine
+### requestAnimationFrame based animation engine
 rAF based abstraction that handles timing and control of one or more independent
 animations.
 
@@ -8,7 +8,8 @@ animations.
 
 #### rAFAnimate( animate, options, context )
 
-    // Rotate cube around x, y and z axes continuously
+    // Rotate cube around x, y and z axes continuously.  msPerTicks defaults to
+    // 1000.0 / 60, or 60 ticks per second (16.67 ms)
     var animateRAFed = rAFAnimate(
       animate,
       {
@@ -26,10 +27,16 @@ animations.
     // Hide the cube
     animateRAFed( { showCube: 0 } );
 
-    // Toggle showCube back on
-    animateRAFed( { showCube: 'toggle' } );
+    // Show the cube for 60 ticks (1 second)
+    animateRAFed ( { showCube: 60 } );
 
-    // Stop running the animation, which resets time, and render reset animation
+    // Toggle x rotation off
+    animateRAFed( { rotateX: 'toggle' } );
+
+    // Show the cube again
+    animateRAFed( { showCube: Infinity } );
+
+    // Stop running animation, resetting time, and render the reset animation
     animateRAFed( { run: 0, render: true } );
 
 `rAFAnimate` ties the animate function and its control options to an engine
@@ -99,6 +106,4 @@ The `render` option is special.  It can only be `true` or `false`.  It is not
 normally passed in explicitly, but calculated.
 
 If any option other than `run` or `msPerTick` is non-zero, `render` will
-automatically be set to `true` in the
-
-[clock]: https://aeoril.github.io/rAFAnimate/test/clocks
+automatically be set to `true` in the options passed on to `animate`.
