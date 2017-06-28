@@ -65,12 +65,6 @@ function rAFAnimate ( animate, options, context ) {
       // update any options passed in optionsUpdates
       if ( optionsUpdates ) {
 
-        /* todo if ( optionsUpdates.render ) {
-
-          optionsUpdates.run = optionsUpdates.run || 'immediate';
-
-        } */
-
         Object.keys( optionsUpdates ).forEach( function( key ) {
 
           // Only default options or options explicitly set initially allowed
