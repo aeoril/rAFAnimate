@@ -36,9 +36,8 @@ function rAFAnimate ( animate, options, context ) {
   // render is true or false.  It indicates whether to render the animation.
   // render can be explicity set to cause a render even if no options are active
   // otherwise, if any option is non-zero except msPerTick it will automatically
-  // be set true.  If render is explicitly passed in as true, and options.run
-  // is zero, optionsUpdates.run will be set to 'immediate' to cause animate()
-  // to be called with outOptions.run === 'immediate' (1-off fire of animate())
+  // be set true.  If render is explicitly passed in as true, animate will be
+  // called to invoke a render even if no options are set to execute
 
   // the following three always exist
   options.msPerTick = options.msPerTick || 1000.0 / 60.0;
