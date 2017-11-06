@@ -11,7 +11,7 @@ function rAFAnimate ( animate, options, context ) {
   var ticksLeftovers;
 
   // eliminate side effects and external interference
-  options = simpleCopy(options);
+  options = { ...options };
 
   // options parameter (an object) defines which options exist.  options are
   // changed by calling the below returned function with optionsUpdates argument.
@@ -202,7 +202,7 @@ function rAFAnimate ( animate, options, context ) {
         }
       } );
 
-      return simpleCopy( options );
+      return { ...options };
 
     }
 
